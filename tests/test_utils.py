@@ -1,6 +1,7 @@
-from src.classed import Category, Product
+from src.category import Category
+from src.product import Product
 from src.utils import create_object_from_json, read_json
-from tests.conftest import sample_json_file
+
 
 
 def test_read_json(sample_json_file):

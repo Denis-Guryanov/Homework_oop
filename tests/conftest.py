@@ -1,5 +1,6 @@
 import pytest
 
+import json
 from src.category import Category
 from src.product import Product
 
@@ -54,3 +55,34 @@ def category_smart(product_1, product_2, product_3):
         "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
         [product_1, product_2, product_3],
     )
+
+@pytest.fixture
+def sample_json_file(tmp_path):
+    data = [
+        {
+            "name": "Смартфоны",
+            "description": "Смартфоны, как средство не только коммуникации, но и получение дополнительных функций для удобства жизни",
+            "products": [
+                {
+                    "name": "Samsung Galaxy S23 Ultra",
+                    "description": "256GB, Серый цвет, 200MP камера",
+                    "price": 1200,
+                    "quantity": 10
+                },
+                {
+                    "name": "iPhone 14",
+                    "description": "512GB, Gray space",
+                    "price": 1100,
+                    "quantity": 5
+                }
+            ]
+        },
+        {
+            "name": "Телевизоры",
+            "description": "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником",
+            "products": []
+        }
+    ]
+    file_path = tmp_path / "sample.json"
+    file_path.write_text(json.dumps(data))
+    return file_path

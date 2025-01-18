@@ -27,3 +27,11 @@ class Category:
     @property
     def product_list(self):
         return self.__products
+
+    def __str__(self):
+        counter = 0
+        for product in self.__products:
+            counter += product.quantity
+        return f'{self.name}, {counter} шт.\n'
+
+

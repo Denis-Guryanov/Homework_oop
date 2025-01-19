@@ -36,3 +36,13 @@ def test_new_product():
     assert new_product.price == 180000
     new_product.price = 12000
     assert new_product.price == 12000
+
+
+def test_str_new(product_str_1, product_str_2):
+    assert product_str_1 == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+    assert product_str_2 == "Iphone 15, 210000.0 руб. Остаток: 8 шт."
+
+
+def test_counter(counter, counter_2, product_1, product_2, product_3):
+    assert product_1 + product_2 == counter
+    assert product_2 + product_3 == counter_2

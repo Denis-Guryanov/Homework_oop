@@ -14,11 +14,7 @@ class Category:
 
     @property
     def products(self):
-        product_str = ""
-        for product in self.__products:
-            product_str += f"{product.name}, {product.price} руб. Остаток {product.quantity} шт.\n "
-        return product_str
-
+        return self.__products
 
     def add_product(self, new_products):
         self.__products.append(new_products)
@@ -26,12 +22,11 @@ class Category:
 
     @property
     def product_list(self):
-        return self.__products
+        product_str = ""
+        for product in self.__products:
+            product_str += f"{product.name}, {product.price} руб. Остаток {product.quantity} шт.\n "
+        return product_str
 
     def __str__(self):
-        counter = 0
-        for product in self.__products:
-            counter += product.quantity
-        return f'{self.name}, {counter} шт.\n'
-
-
+        counter = sum(product.quantity for product in self.__products)
+        return f"{self.name}, {counter} шт.\n"

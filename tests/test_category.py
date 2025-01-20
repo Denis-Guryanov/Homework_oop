@@ -33,3 +33,7 @@ def test_category(category_smart, product_4):
     category_smart.add_product(product_4)
     category_smart.add_product(new_product)
     assert Category.product_count == 5
+
+
+def test_sum_counter(sum_counter):
+    assert sum_counter == "Смартфоны, 27 шт."

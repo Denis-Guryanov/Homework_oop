@@ -1,6 +1,7 @@
+import json
+
 import pytest
 
-import json
 from src.category import Category
 from src.product import Product
 
@@ -56,6 +57,7 @@ def category_smart(product_1, product_2, product_3):
         [product_1, product_2, product_3],
     )
 
+
 @pytest.fixture
 def sample_json_file(tmp_path):
     data = [
@@ -67,22 +69,47 @@ def sample_json_file(tmp_path):
                     "name": "Samsung Galaxy S23 Ultra",
                     "description": "256GB, Серый цвет, 200MP камера",
                     "price": 1200,
-                    "quantity": 10
+                    "quantity": 10,
                 },
                 {
                     "name": "iPhone 14",
                     "description": "512GB, Gray space",
                     "price": 1100,
-                    "quantity": 5
-                }
-            ]
+                    "quantity": 5,
+                },
+            ],
         },
         {
             "name": "Телевизоры",
             "description": "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником",
-            "products": []
-        }
+            "products": [],
+        },
     ]
     file_path = tmp_path / "sample.json"
     file_path.write_text(json.dumps(data))
     return file_path
+
+
+@pytest.fixture
+def product_str_1(product_1):
+    return f"{product_1.name}, {product_1.price} руб. Остаток: {product_1.quantity} шт."
+
+
+@pytest.fixture
+def product_str_2(product_2):
+    return f"{product_2.name}, {product_2.price} руб. Остаток: {product_2.quantity} шт."
+
+
+@pytest.fixture
+def counter(product_1, product_2):
+    return product_1.price * product_1.quantity + product_2.price * product_2.quantity
+
+
+@pytest.fixture
+def counter_2(product_2, product_3):
+    return product_2.price * product_2.quantity + product_3.price * product_3.quantity
+
+
+@pytest.fixture
+def sum_counter(category_smart):
+    return f"{category_smart.name}, {category_smart.products[0].quantity + category_smart.products[1].quantity + category_smart.products[2].quantity} шт."

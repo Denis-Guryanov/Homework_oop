@@ -3,7 +3,7 @@ import json
 import pytest
 
 from src.category import Category
-from src.product import Product, Smartphone, LawnGrass
+from src.product import Product, Smartphone, LawnGrass, Mixin
 
 
 @pytest.fixture
@@ -141,3 +141,4 @@ def counter_2(product_2, product_3):
 @pytest.fixture
 def sum_counter(category_smart):
     return f"{category_smart.name}, {category_smart.products[0].quantity + category_smart.products[1].quantity + category_smart.products[2].quantity} шт."
+

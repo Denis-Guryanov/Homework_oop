@@ -1,6 +1,6 @@
 import pytest
 
-from src.product import Product, Smartphone, LawnGrass
+from src.product import Product, Smartphone, LawnGrass, Mixin, BaseProduct
 from tests.conftest import product_2
 
 product1 = Product(
@@ -75,3 +75,9 @@ def test_sum(samsung, iphone, elit_grass):
     assert samsung + iphone == 2580000
     with pytest.raises(TypeError):
         assert samsung + elit_grass == TypeError
+
+def test_classes():
+    assert Smartphone.__mro__[1:] == LawnGrass.__mro__[1:]
+    assert issubclass(Product, Mixin) is True
+    assert issubclass(Mixin, object) is True
+    assert issubclass(BaseProduct, object) is True

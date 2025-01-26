@@ -1,7 +1,7 @@
+from abc import ABC, abstractmethod
 from src.product import Product
 
-
-class Category:
+class Category():
     name: str
     description: str
     products: list
@@ -36,3 +36,4 @@ class Category:
     def __str__(self):
         counter = sum(product.quantity for product in self.__products)
         return f"{self.name}, {counter} шт.\n"
+

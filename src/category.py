@@ -1,4 +1,7 @@
-class Category:
+from abc import ABC, abstractmethod
+from src.product import Product
+
+class Category():
     name: str
     description: str
     products: list
@@ -17,8 +20,11 @@ class Category:
         return self.__products
 
     def add_product(self, new_products):
-        self.__products.append(new_products)
-        Category.product_count += 1
+        if isinstance(new_products, Product):
+            self.__products.append(new_products)
+            Category.product_count += 1
+        else:
+            raise TypeError
 
     @property
     def product_list(self):
@@ -30,3 +36,4 @@ class Category:
     def __str__(self):
         counter = sum(product.quantity for product in self.__products)
         return f"{self.name}, {counter} шт.\n"
+

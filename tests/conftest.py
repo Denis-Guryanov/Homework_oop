@@ -3,7 +3,7 @@ import json
 import pytest
 
 from src.category import Category
-from src.product import Product
+from src.product import Product, Smartphone, LawnGrass, Mixin
 
 
 @pytest.fixture
@@ -29,10 +29,34 @@ def product_4():
 
 
 @pytest.fixture
-def product_samsung():
-    return Product(
-        "Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5
-    )
+def samsung():
+    smartphone1 = Smartphone("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5, 95.5,
+                             "S23 Ultra", 256, "Серый")
+    return smartphone1
+
+
+@pytest.fixture
+def iphone():
+    smartphone2 = Smartphone("Iphone 15", "512GB, Gray space", 210000.0, 8, 98.2, "15", 512, "Gray space")
+    return smartphone2
+
+
+@pytest.fixture
+def xiaomi():
+    smartphone3 = Smartphone("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14, 90.3, "Note 11", 1024, "Синий")
+    return smartphone3
+
+
+@pytest.fixture
+def elit_grass():
+    grass1 = LawnGrass("Газонная трава", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")
+    return grass1
+
+
+@pytest.fixture
+def strong_grass():
+    grass2 = LawnGrass("Газонная трава 2", "Выносливая трава", 450.0, 15, "США", "5 дней", "Темно-зеленый")
+    return grass2
 
 
 @pytest.fixture
@@ -57,6 +81,10 @@ def category_smart(product_1, product_2, product_3):
         [product_1, product_2, product_3],
     )
 
+@pytest.fixture
+def category_smartphones():
+    category_smartphones = Category("Смартфоны", "Высокотехнологичные смартфоны", [samsung, iphone])
+    return category_smartphones
 
 @pytest.fixture
 def sample_json_file(tmp_path):
@@ -113,3 +141,4 @@ def counter_2(product_2, product_3):
 @pytest.fixture
 def sum_counter(category_smart):
     return f"{category_smart.name}, {category_smart.products[0].quantity + category_smart.products[1].quantity + category_smart.products[2].quantity} шт."
+

@@ -16,13 +16,12 @@ class Mixin:
 
 
 class Product(Mixin, BaseProduct):
-    @abstractmethod
     def __init__(self, name: str, description: str, price: int, quantity: int):
         self.name = name
         self.description = description
         self.__price = price
         self.quantity = quantity
-        if self.quantity == 0:
+        if self.quantity <= 0:
             raise ValueError("Товар с нулевым количеством не может быть добавлен")
         super().__init__()
 

@@ -1,7 +1,6 @@
 import pytest
 
-from src.product import Product, Smartphone, LawnGrass, Mixin, BaseProduct
-from tests.conftest import product_2
+from src.product import BaseProduct, LawnGrass, Mixin, Product, Smartphone
 
 product1 = Product(
     "Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5
@@ -50,14 +49,17 @@ def test_counter(counter, counter_2, product_1, product_2, product_3):
     assert product_1 + product_2 == counter
     assert product_2 + product_3 == counter_2
 
+
 def test_parents():
     assert issubclass(Smartphone, Product) == True
     assert issubclass(LawnGrass, Product) == True
+
 
 def test_belonged_phone(samsung, iphone, xiaomi):
     assert isinstance(samsung, Smartphone) == True
     assert isinstance(iphone, Smartphone) == True
     assert isinstance(xiaomi, Smartphone) == True
+
 
 def test_belong_grass(elit_grass, strong_grass):
     assert isinstance(elit_grass, LawnGrass) == True
@@ -76,8 +78,16 @@ def test_sum(samsung, iphone, elit_grass):
     with pytest.raises(TypeError):
         assert samsung + elit_grass == TypeError
 
+
 def test_classes():
     assert Smartphone.__mro__[1:] == LawnGrass.__mro__[1:]
     assert issubclass(Product, Mixin) is True
     assert issubclass(Mixin, object) is True
     assert issubclass(BaseProduct, object) is True
+
+
+def test_invalid_product():
+    with pytest.raises(
+        ValueError, match="Товар с нулевым количеством не может быть добавлен"
+    ):
+        Product("Бракованный товар", "Неверное количество", 1000.0, 0)

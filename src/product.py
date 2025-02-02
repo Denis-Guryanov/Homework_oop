@@ -1,30 +1,29 @@
-from abc import ABC,abstractmethod
+from abc import ABC, abstractmethod
+
 
 class BaseProduct(ABC):
     @abstractmethod
     def __init__(self):
         pass
 
+
 class Mixin:
     def __init__(self):
-        print(repr(self))
-
-    def __repr__(self):
-        return f'{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})'
+        print(
+            f"Product('{self.name}', '{self.description}', {self.price}, {self.quantity})"
+        )
+        super().__init__()
 
 
 class Product(Mixin, BaseProduct):
-    name: str
-    description: str
-    price: float
-    quantity: int
-
-    def __init__(self, name, description, price, quantity):
-
+    @abstractmethod
+    def __init__(self, name: str, description: str, price: int, quantity: int):
         self.name = name
         self.description = description
         self.__price = price
         self.quantity = quantity
+        if self.quantity == 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
         super().__init__()
 
     @property
@@ -32,9 +31,9 @@ class Product(Mixin, BaseProduct):
         return self.__price
 
     @price.setter
-    def price(self, value):
+    def price(self, value: int):
         if value <= 0:
-            print("Цена не должна быть равна нулю или быть отрицательной")
+            print("Цена не должна быть нулевая или отрицательная")
         else:
             self.__price = value
 
@@ -47,31 +46,33 @@ class Product(Mixin, BaseProduct):
         return cls(name, description, price, quantity)
 
     def __repr__(self):
-        return f"Product(name='{self.name}', description='{self.description}', price='{self.price}', quantity='{self.quantity}')"
+        return f"Product(name='{self.name}', description='{self.description}', price={self.price}, quantity={self.quantity})"
 
     def __str__(self):
         return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт.\n"
 
     def __add__(self, other):
-        if type(other) is not self.__class__:
+        if not isinstance(other, self.__class__):
             raise TypeError
         return self.__price * self.quantity + other.__price * other.quantity
 
 
 class Smartphone(Product, Mixin):
-    def __init__(self,name, description, price, quantity, efficiency, model, memory, color):
+    def __init__(
+        self, name, description, price, quantity, efficiency, model, memory, color
+    ):
         super().__init__(name, description, price, quantity)
         self.efficiency = efficiency
         self.model = model
         self.memory = memory
         self.color = color
 
-class LawnGrass(Product,Mixin):
-    def __init__(self, name, description, price, quantity, country, germination_period, color):
+
+class LawnGrass(Product, Mixin):
+    def __init__(
+        self, name, description, price, quantity, country, germination_period, color
+    ):
         super().__init__(name, description, price, quantity)
         self.country = country
         self.germination_period = germination_period
         self.color = color
-
-
-

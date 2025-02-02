@@ -1,7 +1,7 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 
 
-class BaseProduct(ABC):
+class BaseProduct:
     @abstractmethod
     def __init__(self):
         pass

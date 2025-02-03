@@ -40,6 +40,6 @@ def test_sum_counter(sum_counter):
 
 
 def test_middle_price(category_smart, category_smartphones, empty_category):
-    assert category_smart.middle_price() == 24764.71
-    assert category_smartphones.middle_price() == 22941.18
+    assert category_smart.middle_price() == 111629.63
+    assert category_smartphones.middle_price() == 198461.54
     assert empty_category.middle_price() == 0

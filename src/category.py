@@ -37,9 +37,10 @@ class Category:
         return f"{self.name}, {counter} шт.\n"
 
     def middle_price(self):
-        total_price = sum(product.price for product in self.__products)
+        total_price = sum(product.price * product.quantity for product in self.__products)
+        total_count = sum(product.quantity for product in self.__products)
         try:
-            middle_price = total_price / Category.product_count
+            price = total_price / total_count
         except ZeroDivisionError:
             return 0
-        return round(middle_price, 2)
+        return round(price, 2)
